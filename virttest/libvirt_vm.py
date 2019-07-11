@@ -71,7 +71,8 @@ def complete_uri(ip_address, protocol=None, port=None):
         driver = uri.split(":")[0]
         # The libvirtd daemon's mode(system or session on qemu)
         daemon_mode = uri.split("/")[-1]
-        complete_uri = "%s+ssh://%s/%s" % (driver, ip_address, daemon_mode)
+        protocol = "ssh" if protocol == None else protocol
+        complete_uri = "%s+%s://%s/%s" % (driver, protocol, ip_address, daemon_mode)
     return complete_uri
 
 
