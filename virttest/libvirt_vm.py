@@ -2252,6 +2252,11 @@ class VM(virt_vm.BaseVM):
                     self.virtnet.free_mac_address(nic_name)
 
     def remove(self):
+        """
+        Destroy and undefine vm
+        VMRemoveError: if the vm to be removed is transient or has managedsave
+                       file, checkpoint or snapshot
+        """
         self.destroy(gracefully=True, free_mac_addresses=False)
         if not self.undefine():
             raise virt_vm.VMRemoveError("VM '%s' undefine error" % self.name)
